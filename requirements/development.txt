@@ -6,6 +6,7 @@ ipython
 
 # Test
 pytest
+coverage
 
 # Type Checks and Linting
 mypy
