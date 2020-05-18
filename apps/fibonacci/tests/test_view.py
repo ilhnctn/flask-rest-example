@@ -5,7 +5,7 @@ from app import app
 
 
 @pytest.mark.parametrize("target, expected", ((12, 144), (2, 1)))
-def test_get_factorial(target, expected):
+def test_get_factorial(target: int, expected: int) -> None:
     response = app.test_client().post(
         '/api/v1/fibonacci',
         data=json.dumps({'target': target}),
@@ -18,7 +18,7 @@ def test_get_factorial(target, expected):
     assert data['result'] == expected
 
 
-def test_fails_with_unsupported_param():
+def test_fails_with_unsupported_param() -> None:
     response = app.test_client().post(
         '/api/v1/fibonacci',
         data=json.dumps({'target': "target"}),

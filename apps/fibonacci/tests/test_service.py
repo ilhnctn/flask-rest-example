@@ -18,4 +18,4 @@ def test_various_known_fibonacci_results() -> None:
 
 def test_fails_when_unsupported_input_sent() -> None:
     with pytest.raises(Exception):
-        assert fb_service.get_fibonacci_of_number(target="asdf")
+        assert fb_service.get_fibonacci_of_number(target="asdf")  # type: ignore

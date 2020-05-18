@@ -1,6 +1,6 @@
 from logging import getLogger
 
-from typing import Union
+from typing import Any
 
 logger = getLogger(__name__)
 
@@ -9,8 +9,7 @@ class AcckermanService:
 
     def get_acckerman_result_of_numbers(self,
                                         start: int,
-                                        end: int) -> \
-            Union[int, str]:
+                                        end: int) -> Any:
         # TODO BUG: Doesn't stop on RecursionError, continues.
         if not all([isinstance(x, int) for x in [start, end]]):
             return f"Parameters are: {start} --and-- {end} "
