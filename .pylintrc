@@ -1,0 +1,4 @@
+[MASTER]
+disable=
+    C0114,C0115,C0116, # missing-X-docstring
+    R0201, R0903 # too-few-public-methods

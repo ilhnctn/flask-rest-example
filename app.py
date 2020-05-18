@@ -36,11 +36,12 @@ def get_acckerman_of_two_inputs() -> Any:
         abort(400, str(errors))
 
     data: Dict[str, int] = request.json
-    logger.info(f"Requested data is {data}")
+    logger.info("Requested data is %s", str(data))
 
     end: int = cast(int, data.get("end"))
     start: int = cast(int, data.get("start"))
-    result = acckerman_service.get_acckerman_result_of_numbers(start=start, end=end)
+    result = acckerman_service.get_acckerman_result_of_numbers(start=start,
+                                                               end=end)
 
     if isinstance(result, str):
         abort(400, result)
@@ -56,7 +57,7 @@ def get_factorial_of_number() -> Any:
         abort(400, str(errors))
 
     data: Dict[str, int] = request.json
-    logger.info(f"Requested data is {data}")
+    logger.info("Requested data is %s", str(data))
     target: int = cast(int, data.get("target"))
     result = factorial_service.get_factorial_of_number(target=target)
 
@@ -72,7 +73,7 @@ def get_fibonacci_of_number() -> Any:
         abort(400, str(errors))
 
     data: Dict[str, int] = request.json
-    logger.info(f"Requested data is {data}")
+    logger.info("Requested data is: %s", str(data))
     target: int = cast(int, data.get("target"))
     result = fib_service.get_fibonacci_of_number(target=target)
     if isinstance(result, str):
@@ -82,6 +83,10 @@ def get_fibonacci_of_number() -> Any:
 
 @app.route('/')
 def index() -> str:
+    """
+    Demo view
+    :return: str
+    """
     return "Hello, World!"
 
 

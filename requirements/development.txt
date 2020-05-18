@@ -11,3 +11,4 @@ coverage
 # Type Checks and Linting
 mypy
 flake8
+pylint
