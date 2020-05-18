@@ -1,23 +1,38 @@
-from flask import Flask, jsonify
+import logging
+from typing import Any, cast, Dict
+
+from flask import Flask, jsonify, abort
 from flask import request
 
+from apps.fibonacci.service import FibonacciService
+from apps.fibonacci.schema import FibonacciInputSchema
+
 app = Flask(__name__)
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+fib_service = FibonacciService()
+fibonacci_schema = FibonacciInputSchema()
 
 
 @app.route('/api/v1/fibonacci', methods=['POST'])
-def get_fibo():
-    """
-    Sample request
-        curl -H "Content-Type: application/json" \
-            -X POST http://localhost:8080/api/v1/fibonacci \
-            -d '{"username":"xyz","password":"xyz"}'
-    """
-    data = request.json
-    return jsonify({'tasks': data})
+def get_fibonacci_of_number() -> Any:
+    errors = fibonacci_schema.validate(request.json)
+
+    if errors:
+        logger.error(errors)
+        abort(400, str(errors))
+
+    data: Dict[str, int] = request.json
+    logger.info(f"Requested data is {data}")
+    target: int = cast(int, data.get("target"))
+    result = fib_service.get_fibonacci_of_number(target=target)
+
+    return jsonify({'result': result})
 
 
 @app.route('/')
-def index():
+def index() -> str:
     return "Hello, World!"
 
 
