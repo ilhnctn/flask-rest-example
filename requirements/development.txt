@@ -1,0 +1,12 @@
+-r common.txt
+
+# Debug
+ipdb
+ipython
+
+# Test
+pytest
+
+# Type Checks and Linting
+mypy
+flake8
