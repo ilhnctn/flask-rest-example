@@ -4,21 +4,47 @@ from typing import Any, cast, Dict
 from flask import Flask, jsonify, abort
 from flask import request
 
-from apps.factorial.service import FactorialService
-from apps.factorial.schema import FactorialInputSchema
+from apps.acckerman.schema import AcckermanInputSchema
+from apps.acckerman.service import AcckermanService
 
-from apps.fibonacci.service import FibonacciService
+from apps.factorial.schema import FactorialInputSchema
+from apps.factorial.service import FactorialService
+
 from apps.fibonacci.schema import FibonacciInputSchema
+from apps.fibonacci.service import FibonacciService
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+acckerman_schema = AcckermanInputSchema()
+acckerman_service = AcckermanService()
 
 fib_service = FibonacciService()
 fibonacci_schema = FibonacciInputSchema()
 
 factorial_service = FactorialService()
 factorial_schema = FactorialInputSchema()
+
+
+@app.route('/api/v1/acckerman', methods=['POST'])
+def get_acckerman_of_two_inputs() -> Any:
+    errors = acckerman_schema.validate(request.json)
+
+    if errors:
+        logger.error(errors)
+        abort(400, str(errors))
+
+    data: Dict[str, int] = request.json
+    logger.info(f"Requested data is {data}")
+
+    end: int = cast(int, data.get("end"))
+    start: int = cast(int, data.get("start"))
+    result = acckerman_service.get_acckerman_result_of_numbers(start=start, end=end)
+
+    if isinstance(result, str):
+        abort(400, result)
+    return jsonify({'result': result})
 
 
 @app.route('/api/v1/factorial', methods=['POST'])
