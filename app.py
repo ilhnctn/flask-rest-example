@@ -75,7 +75,8 @@ def get_fibonacci_of_number() -> Any:
     logger.info(f"Requested data is {data}")
     target: int = cast(int, data.get("target"))
     result = fib_service.get_fibonacci_of_number(target=target)
-
+    if isinstance(result, str):
+        abort(400, result)
     return jsonify({'result': result})
 
 

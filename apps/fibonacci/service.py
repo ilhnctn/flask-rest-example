@@ -5,6 +5,9 @@ class FibonacciService(object):
     computed: List[int] = [0, 1, 1]
 
     def get_fibonacci_of_number(self, target: int) -> int:
+        if not isinstance(target, int):
+            raise Exception(f"Unsupported input type. int expected")
+
         if target < len(self.computed):
             return self.computed[target]
 
