@@ -1,7 +1,9 @@
 import logging
 from typing import Any, cast, Dict
 
-from flask import Flask, jsonify, abort
+from http import HTTPStatus
+
+from flask import Flask, make_response
 from flask import request
 
 from apps.acckerman.schema import AcckermanInputSchema
@@ -33,7 +35,7 @@ def get_acckerman_of_two_inputs() -> Any:
 
     if errors:
         logger.error(errors)
-        abort(400, str(errors))
+        return make_response({'message': errors}, HTTPStatus.BAD_REQUEST)
 
     data: Dict[str, int] = request.json
     logger.info("Requested data is %s", str(data))
@@ -44,8 +46,8 @@ def get_acckerman_of_two_inputs() -> Any:
                                                                end=end)
 
     if isinstance(result, str):
-        abort(400, result)
-    return jsonify({'result': result})
+        return make_response({"message": result}, HTTPStatus.BAD_REQUEST)
+    return make_response({'result': result}, HTTPStatus.OK)
 
 
 @app.route('/api/v1/factorial', methods=['POST'])
@@ -54,14 +56,14 @@ def get_factorial_of_number() -> Any:
 
     if errors:
         logger.error(errors)
-        abort(400, str(errors))
+        return make_response({"message": errors}, HTTPStatus.BAD_REQUEST)
 
     data: Dict[str, int] = request.json
     logger.info("Requested data is %s", str(data))
     target: int = cast(int, data.get("target"))
     result = factorial_service.get_factorial_of_number(target=target)
 
-    return jsonify({'result': result})
+    return make_response({'result': result}, HTTPStatus.OK)
 
 
 @app.route('/api/v1/fibonacci', methods=['POST'])
@@ -70,15 +72,15 @@ def get_fibonacci_of_number() -> Any:
 
     if errors:
         logger.error(errors)
-        abort(400, str(errors))
+        return make_response({"message": errors}, HTTPStatus.BAD_REQUEST)
 
     data: Dict[str, int] = request.json
     logger.info("Requested data is: %s", str(data))
     target: int = cast(int, data.get("target"))
     result = fib_service.get_fibonacci_of_number(target=target)
     if isinstance(result, str):
-        abort(400, result)
-    return jsonify({'result': result})
+        return make_response({"message": result}, HTTPStatus.BAD_REQUEST)
+    return make_response({'result': result}, HTTPStatus.OK)
 
 
 @app.route('/')
