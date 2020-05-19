@@ -1,10 +1,14 @@
 import logging
+from os import environ as os_environ
+from sys import setrecursionlimit
 
 from flask import Flask
 
 from apps.fibonacci.views import fib_bp
 from apps.factorial.view import FactorialView
 from apps.acckerman.views import AcckermanView
+
+setrecursionlimit(os_environ.get("MAX_RECURSION_LIMIT", 3000))
 
 app = Flask(__name__)
 app.register_blueprint(blueprint=fib_bp)

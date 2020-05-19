@@ -12,7 +12,7 @@ class AcckermanService:
                                         end: int) -> Any:
         # TODO BUG: Doesn't stop on RecursionError, continues.
         if not all([isinstance(x, int) for x in [start, end]]):
-            return f"Parameters are: {start} --and-- {end} "
+            raise Exception(f"Params: {start} - {end}")
 
         if start == 0:
             result = end + 1
@@ -30,5 +30,5 @@ class AcckermanService:
                                                          end=end - 1))
             return result
         except (RecursionError, Exception) as err:
-            logger.warning(err)
-            return f"Recursion error: {str(err)}"
+            logger.error(err)
+            raise Exception(f"Recursion error: {err}")
