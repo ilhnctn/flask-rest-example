@@ -53,6 +53,8 @@ In staging environments, this can be separated as well.
 ```
 
 ### Notes and Missing Topics
+- [ ] BUGS! Especially on Acckerman MAX_RECURSION_EXCEPTIONS
+- [ ] CI/CD Pipeline And test automation
 - [ ] Caching: Add Redis layer on list endpoints
 - [ ] Add custom Exception handling and improve logging
 - [ ] pep8 & flake
