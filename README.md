@@ -1,5 +1,5 @@
-# Klarna Sample App
-This project creates an API to implement a few mathematical algorithms over REST API.
+# Flask Example Project
+This project creates an API to implement and expose a few mathematical algorithms over REST API.
 
 ### Development Stack
 This app is developed on Python 3.8.3 and Flask 1.1.2.
@@ -15,8 +15,8 @@ After this step, clone the project and navigate into the project root.
 ### Installation On Local Env
 
 ```bash
-➜ git clone git@github.com:ilhnctn/klarna.git
-➜ cd klarna && python -m venv venv && source venv/bin/activate
+➜ git clone git@github.com:ilhnctn/flask-example-app.git
+➜ cd flask-example-app && python -m venv venv && source venv/bin/activate
 ➜ python -m pip install -r requirements/development.txt 
 ```
 
@@ -29,7 +29,7 @@ You must copy the dist env file as below and fill your credentials.
 
 ### Installation On Docker
 ```bash
-➜ git clone git@github.com:ilhnctn/klarna.git && cd klarna
+➜ git clone git@github.com:ilhnctn/flask-example-app.git && cd flask-example-app
 ➜ docker-compose up --build 
 ```
 
@@ -45,19 +45,17 @@ Test suits depend on pytest and coverage (not mandatory).
 In staging environments, this can be separated as well.
 
 ```bash
-(venv) ➜  klarna git:(develop) ✗ pytest
+(venv) ➜  flask-example-app git:(develop) ✗ pytest
 (venv) ➜ # or to run specific test
-(venv) ➜  klarna git:(develop) ✗ pytest apps/fibonacci/tests/test_service.py -k test_fails_when_unsupported_input_sent
+(venv) ➜  flask-example-app git:(develop) ✗ pytest apps/fibonacci/tests/test_service.py -k test_fails_when_unsupported_input_sent
 (venv) ➜ # If you want to generate code coverage 
-(venv) ➜  klarna git:(develop) ✗ coverage run -m pytest
+(venv) ➜  flask-example-app git:(develop) ✗ coverage run -m pytest
 ```
 
 ### Notes and Missing Topics
-- [ ] BUGS! Especially on Acckerman MAX_RECURSION_EXCEPTIONS
 - [ ] CI/CD Pipeline And test automation
 - [ ] Caching: Add Redis layer on list endpoints
 - [ ] Add custom Exception handling and improve logging
-- [ ] pep8 & flake
 - [x] Tests
     - [x] Service Tests
     - [ ] Model Tests
