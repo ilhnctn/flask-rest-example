@@ -4,27 +4,25 @@ from typing import Any, cast, Dict
 from http import HTTPStatus
 
 from flask import request, Blueprint, make_response
+from redis import StrictRedis
 
 from apps.fibonacci.schema import FibonacciInputSchema
 from apps.fibonacci.service import FibonacciService
-
-fib_bp: Blueprint = Blueprint('fibonacci', __name__)
+from core.utils import get_redis_client
+from core.service import CacheService
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+fib_bp: Blueprint = Blueprint('fibonacci', __name__)
+redis_client: StrictRedis = get_redis_client()
 
-@fib_bp.route('/')
-@fib_bp.route('/home')
-def home() -> str:
-    return "Welcome to the library Home."
-
-
-fibonacci_service = FibonacciService()
+cache_service: CacheService = CacheService(r_client=get_redis_client())
+fibonacci_service = FibonacciService(cache_service=cache_service)
 fibonacci_schema = FibonacciInputSchema()
 
 
-@fib_bp.route("/api/v1/fibonacci", methods=["POST"])
+@fib_bp.route("/api/v1/fibonacci", methods=["POST", "GET"])
 def post() -> Any:
     errors = fibonacci_schema.validate(request.json)
 
