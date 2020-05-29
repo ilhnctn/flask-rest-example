@@ -7,6 +7,7 @@ ipython
 # Test
 pytest
 coverage
+fakeredis
 
 # Type Checks and Linting
 mypy

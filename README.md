@@ -54,8 +54,8 @@ In staging environments, this can be separated as well.
 
 ### Notes and Missing Topics
 - [ ] CI/CD Pipeline And test automation
-- [ ] Caching: Add Redis layer on list endpoints
-- [ ] Add custom Exception handling and improve logging
+- [x] Caching: Add Redis layer on list endpoints
+- [x] Add custom Exception handling and improve logging
 - [x] Tests
     - [x] Service Tests
     - [ ] Model Tests
